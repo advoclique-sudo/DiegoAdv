@@ -117,15 +117,22 @@
     @media (max-width: 640px) { .header .logo { height: 40px; } .header .btn-text { display: none; } .header .btn { padding: 10px 14px; } }
 
     /* Hero */
-    .hero { position: relative; background: var(--navy); color: var(--white); overflow: hidden; }
+    .hero {
+      position: relative; color: var(--white); overflow: hidden;
+      background: var(--navy) url("img/hero-auxilio-acidente.jpg") 75% 30% / cover no-repeat;
+    }
     .hero::before {
       content: ""; position: absolute; inset: 0;
-      background: radial-gradient(60% 80% at 100% 50%, rgba(194,164,109,.12), transparent 60%);
+      background: linear-gradient(90deg, rgba(14,26,45,.97) 0%, rgba(14,26,45,.92) 32%, rgba(20,37,61,.55) 62%, rgba(20,37,61,.15) 100%);
       pointer-events: none;
     }
+    .hero::after {
+      content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 3px;
+      background: linear-gradient(90deg, var(--gold), transparent 70%);
+    }
     .hero .container {
-      display: grid; grid-template-columns: 1.1fr 1fr; gap: 56px; align-items: center;
-      padding: 72px 0 80px; position: relative;
+      display: flex; align-items: center; min-height: min(640px, calc(100vh - 72px));
+      padding: 80px 0 88px; position: relative;
     }
     .eyebrow {
       display: inline-flex; align-items: center; gap: 10px;
@@ -133,6 +140,7 @@
       margin-bottom: 20px;
     }
     .eyebrow::before { content: ""; width: 28px; height: 2px; background: var(--gold); }
+    .hero-content { max-width: 600px; }
     .hero h1 {
       font-size: clamp(1.85rem, 3.6vw, 2.9rem); line-height: 1.15; font-weight: 700;
       letter-spacing: -.01em; margin-bottom: 20px;
@@ -143,30 +151,23 @@
     .hero-note { margin-top: 22px; font-size: .82rem; color: rgba(255,255,255,.6); display: flex; align-items: center; gap: 8px; }
     .hero-note svg { width: 16px; height: 16px; color: var(--gold); flex-shrink: 0; }
 
-    /* Cartão do hero (substitui a foto) */
-    .hero-media { position: relative; }
-    .hero-media::after {
-      content: ""; position: absolute; inset: 18px -18px -18px 18px; border: 2px solid var(--gold);
-      border-radius: 22px; opacity: .55; z-index: 0;
+    /* Situações que merecem análise */
+    .situations { background: var(--gray); padding: 64px 0; }
+    .situations-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px 24px; margin-bottom: 28px; }
+    .situations-head h2 { font-size: clamp(1.3rem, 2.2vw, 1.6rem); color: var(--navy); font-weight: 700; line-height: 1.25; }
+    .situations-head p { color: var(--muted); font-size: .92rem; }
+    .check-list { list-style: none; display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; }
+    .check-list li {
+      background: var(--white); border-radius: var(--radius); padding: 22px 20px; box-shadow: var(--shadow);
+      display: flex; flex-direction: column; gap: 14px; font-size: .93rem; line-height: 1.45; color: var(--text);
+      border-top: 3px solid var(--gold);
     }
-    .check-card {
-      position: relative; z-index: 1;
-      background: var(--white); color: var(--text); border-radius: 22px;
-      padding: 34px 32px; box-shadow: 0 30px 60px rgba(0,0,0,.35);
-    }
-    .check-card h2 { font-size: 1.15rem; color: var(--navy); font-weight: 700; line-height: 1.3; margin-bottom: 6px; }
-    .check-card > p { font-size: .9rem; color: var(--muted); margin-bottom: 22px; max-width: none; }
-    .check-list { list-style: none; display: grid; gap: 14px; }
-    .check-list li { display: flex; gap: 14px; align-items: flex-start; font-size: .95rem; line-height: 1.45; }
     .check-list .tick {
-      width: 26px; height: 26px; border-radius: 50%; background: rgba(194,164,109,.18); color: var(--gold-dark);
-      display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px;
+      width: 30px; height: 30px; border-radius: 50%; background: rgba(194,164,109,.18); color: var(--gold-dark);
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
     }
-    .check-list .tick svg { width: 14px; height: 14px; }
-    .check-card .card-foot {
-      margin-top: 24px; padding-top: 18px; border-top: 1px solid rgba(20,37,61,.08);
-      font-size: .82rem; color: var(--muted);
-    }
+    .check-list .tick svg { width: 15px; height: 15px; }
+    .situations .card-foot { margin-top: 20px; font-size: .82rem; color: var(--muted); }
 
     /* Seções */
     section { padding: 88px 0; }
@@ -291,9 +292,10 @@
 
     /* Responsivo */
     @media (max-width: 900px) {
-      .hero .container { grid-template-columns: 1fr; gap: 44px; padding: 48px 0 64px; }
-      .hero-media { margin-right: 12px; }
-      .hero-media::after { inset: 12px -12px -12px 12px; }
+      .hero { background-position: 70% center; }
+      .hero::before { background: linear-gradient(180deg, rgba(14,26,45,.55) 0%, rgba(14,26,45,.82) 40%, rgba(14,26,45,.95) 100%); }
+      .hero .container { min-height: 0; padding: 140px 0 56px; align-items: flex-end; }
+      .check-list { grid-template-columns: 1fr 1fr; }
       .cards, .steps-grid { grid-template-columns: 1fr 1fr; }
       .who-grid { grid-template-columns: 1fr; gap: 36px; }
       .footer-grid { grid-template-columns: 1fr; gap: 28px; }
@@ -302,7 +304,8 @@
     }
     @media (max-width: 560px) {
       .cards, .steps-grid { grid-template-columns: 1fr; }
-      .check-card { padding: 28px 22px; }
+      .check-list { grid-template-columns: 1fr; }
+      .check-list li { flex-direction: row; align-items: center; padding: 16px 18px; }
       .hero-actions .btn { width: 100%; }
       .section-cta .btn, .cta .btn { width: 100%; }
       .faq-list summary { padding: 18px 18px; }
@@ -347,7 +350,7 @@
     <!-- 1. Destaque principal -->
     <section class="hero" aria-labelledby="titulo-principal">
       <div class="container">
-        <div>
+        <div class="hero-content">
           <span class="eyebrow">Auxílio-acidente · INSS</span>
           <h1 id="titulo-principal">Ficou com <em>sequela</em> depois de um acidente?</h1>
           <p>Se um acidente — de trabalho ou não — deixou limitações que reduziram sua capacidade para o trabalho, você pode ter direito ao auxílio-acidente do INSS. Entenda seus direitos e busque orientação jurídica para o seu caso.</p>
@@ -362,20 +365,24 @@
             Atendimento pelo WhatsApp · Análise individual de cada situação
           </p>
         </div>
-        <div class="hero-media">
-          <div class="check-card">
-            <h2>Situações que merecem análise</h2>
-            <p>Identificou-se com alguma delas? Vale entender seus direitos.</p>
-            <ul class="check-list">
-              <li><span class="tick"><svg aria-hidden="true"><use href="#ico-check"/></svg></span>Sofreu acidente de trabalho, de trânsito, doméstico ou em outra situação</li>
-              <li><span class="tick"><svg aria-hidden="true"><use href="#ico-check"/></svg></span>Ficou com sequela permanente após a recuperação</li>
-              <li><span class="tick"><svg aria-hidden="true"><use href="#ico-check"/></svg></span>Voltou ao trabalho com limitações ou precisou mudar de função</li>
-              <li><span class="tick"><svg aria-hidden="true"><use href="#ico-check"/></svg></span>Teve o auxílio por incapacidade encerrado sem nenhum outro benefício</li>
-              <li><span class="tick"><svg aria-hidden="true"><use href="#ico-check"/></svg></span>Teve o pedido negado pelo INSS</li>
-            </ul>
-            <p class="card-foot">O direito depende dos requisitos legais e da avaliação de cada caso.</p>
-          </div>
+      </div>
+    </section>
+
+    <!-- 1b. Situações que merecem análise -->
+    <section class="situations" aria-labelledby="titulo-situacoes">
+      <div class="container">
+        <div class="situations-head">
+          <h2 id="titulo-situacoes">Situações que merecem análise</h2>
+          <p>Identificou-se com alguma delas? Vale entender seus direitos.</p>
         </div>
+        <ul class="check-list">
+          <li><span class="tick"><svg aria-hidden="true"><use href="#ico-check"/></svg></span>Sofreu acidente de trabalho, de trânsito, doméstico ou em outra situação</li>
+          <li><span class="tick"><svg aria-hidden="true"><use href="#ico-check"/></svg></span>Ficou com sequela permanente após a recuperação</li>
+          <li><span class="tick"><svg aria-hidden="true"><use href="#ico-check"/></svg></span>Voltou ao trabalho com limitações ou precisou mudar de função</li>
+          <li><span class="tick"><svg aria-hidden="true"><use href="#ico-check"/></svg></span>Teve o auxílio por incapacidade encerrado sem nenhum outro benefício</li>
+          <li><span class="tick"><svg aria-hidden="true"><use href="#ico-check"/></svg></span>Teve o pedido negado pelo INSS</li>
+        </ul>
+        <p class="card-foot">O direito depende dos requisitos legais e da avaliação de cada caso.</p>
       </div>
     </section>
 
